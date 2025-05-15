@@ -21,18 +21,11 @@
 # btn.place(relx=0.5 , rely = 0.5 , anchor="center") 
 # app.mainloop()
 #
-from openai import OpenAI
+# Use a pipeline as a high-level helper
+from transformers import pipeline
 
-client = OpenAI(
-  api_key="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"
-)
-
-completion = client.chat.completions.create(
-  model="gpt-4o-mini",
-  store=True,
-  messages=[
-    {"role": "user", "content": "write a haiku about ai"}
-  ]
-)
-
-print(completion.choices[0].message);
+pipe = pipeline("text-generation", model="deepseek-ai/DeepSeek-R1", trust_remote_code=True)
+messages = [
+    {"role": "user", "content": "Who are you?"},
+]
+pipe(messages)
